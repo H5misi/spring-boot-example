@@ -3,6 +3,7 @@ package com.example.demo.student;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
+import java.time.Period;
 
 // Map "student" class to database
 @Entity
@@ -23,6 +24,7 @@ public class Student {
     private String name;
     private String email;
     private LocalDate dob;
+    @Transient
     private Integer age;
 
 //    Constructor without attributes
@@ -80,7 +82,7 @@ public class Student {
     }
 
     public Integer getAge() {
-        return age;
+        return Period.between(this.dob, LocalDate.now()).getYears();
     }
 
     public void setAge(Integer age) {

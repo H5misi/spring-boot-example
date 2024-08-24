@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDate;
 import java.time.Month;
 import java.util.List;
+import java.util.Optional;
 
 // this Class is declared as Business logic (Service) class
 @Service
@@ -22,5 +23,15 @@ public class StudentService {
 
     return studentRepository.findAll();
 
+    }
+
+    public void addNewStudent(Student student) {
+        Optional<Student> studentOptional = studentRepository.findStudnetByEmail(student.getEmail());
+
+        if (studentOptional.isPresent()){
+            throw new IllegalStateException("Email taken");
+        }
+
+        studentRepository.save(student);
     }
 }
