@@ -32,20 +32,18 @@ public class Student {
     }
 
 //    Constructor with all attributes
-    public Student(Long id, String name, String email, LocalDate dob, Integer age) {
+    public Student(Long id, String name, String email, LocalDate dob) {
         this.name = name;
         this.email = email;
         this.dob = dob;
-        this.age = age;
         this.id = id;
     }
 
 //    Constructor with all attributes except ID (will be auto generated using database)
-    public Student(String name, String email, LocalDate dob, Integer age) {
+    public Student(String name, String email, LocalDate dob) {
         this.name = name;
         this.email = email;
         this.dob = dob;
-        this.age = age;
     }
 
 
