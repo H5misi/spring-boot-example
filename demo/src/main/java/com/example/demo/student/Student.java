@@ -8,6 +8,7 @@ import java.time.Period;
 // Map "student" class to database
 @Entity
 @Table
+// This class is declared as the Table in the database
 public class Student {
 
     @Id
