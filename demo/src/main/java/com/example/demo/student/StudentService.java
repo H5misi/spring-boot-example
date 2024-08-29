@@ -1,9 +1,11 @@
 package com.example.demo.student;
 
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 /*
@@ -49,5 +51,26 @@ public class StudentService {
         }
 
         studentRepository.deleteById(studentId);
+    }
+
+//    This annotation iss used to manage transactions in a Spring boot application and used to define a scope of transaction.
+    @Transactional
+    public void updateStudent(Long studentId, String name, String email) {
+        Student student = studentRepository.findById(studentId)
+                .orElseThrow(() -> new IllegalStateException("Student with ID " + studentId + " does not exist"));
+
+        if (name != null && !name.isEmpty() && !Objects.equals(student.getName(), name)){
+            student.setName(name);
+        }
+
+        if (email != null && !email.isEmpty() && !Objects.equals(student.getEmail(), email)){
+            Optional<Student> studentOptional = studentRepository.findStudentByEmail((email));
+
+            if (studentOptional.isPresent()){
+                throw new IllegalStateException("Email taken");
+            }
+
+            student.setEmail(email);
+        }
     }
 }
